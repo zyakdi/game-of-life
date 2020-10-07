@@ -1,0 +1,38 @@
+<template>
+  <div class="cell" :class="{ alive: isAlive }" @click="onClick" />
+</template>
+
+<script lang="ts">
+import Vue from "vue";
+
+export type Position = { row: number; column: number };
+
+export default Vue.extend({
+  props: {
+    isAlive: { type: Boolean, required: true, default: false },
+    position: {
+      type: Object as () => Position,
+      required: true,
+      validator: (position: Position) =>
+        position.row >= 0 && position.column >= 0
+    }
+  },
+  methods: {
+    onClick: function() {
+      console.log(`Click on (${this.position.row}, ${this.position.column})`);
+      this.$emit("change-cell-state", this.position);
+    }
+  }
+});
+</script>
+
+<style scoped>
+.cell {
+  width: 40px;
+  height: 40px;
+}
+
+.alive {
+  background-color: #cff;
+}
+</style>
