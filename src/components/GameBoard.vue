@@ -54,8 +54,6 @@ export default Vue.extend({
       this.board = board;
     },
     computeBoard(): void {
-      console.log("play");
-      console.table(this.board);
       const directions: { x: number; y: number }[] = [
         { x: -1, y: -1 },
         { x: 0, y: -1 },

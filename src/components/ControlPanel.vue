@@ -1,17 +1,29 @@
 <template>
   <div class="container">
-    <p>"There are {{ aliveCells }} alive cells"</p>
-    <button>Play</button>
+    <p>There are {{ aliveCells }} alive cells</p>
+    <button @click="onClickPlay">{{ isPlaying ? "Pause" : "Play" }}</button>
     <button @click="resetFunction">Reset</button>
     <button @click="playFunction">Next</button>
-    <div>Slider bar</div>
+    <input
+      v-model.number="speedValue"
+      type="range"
+      :min="MIN_SPEED"
+      max="1000"
+    />
+    <p>value is {{ speedValue }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 
-type Data = { intervalValue: number; isPlaying: boolean };
+type Data = {
+  speedValue: number;
+  intervalRef: number | undefined;
+  isPlaying: boolean;
+  MIN_SPEED?: number;
+  MAX_SPEED?: number;
+};
 
 export default Vue.extend({
   props: {
@@ -39,7 +51,49 @@ export default Vue.extend({
     }
   },
   data(): Data {
-    return { intervalValue: 1000, isPlaying: false };
+    return { speedValue: 500, intervalRef: undefined, isPlaying: false };
+  },
+  watch: {
+    speedValue: function() {
+      this.onChangeRange();
+    }
+  },
+  created() {
+    this.MIN_SPEED = 100;
+    this.MAX_SPEED = 1000;
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalRef);
+    this.intervalRef = undefined;
+  },
+  methods: {
+    onClickPlay() {
+      if (this.isPlaying) {
+        this.pause();
+      } else {
+        this.play();
+      }
+      this.isPlaying = !this.isPlaying;
+    },
+    play() {
+      if (this.MIN_SPEED && this.MAX_SPEED) {
+        this.intervalRef = setInterval(
+          this.playFunction,
+          this.MAX_SPEED - this.speedValue + this.MIN_SPEED
+        );
+      }
+    },
+    pause() {
+      clearInterval(this.intervalRef);
+      this.intervalRef = undefined;
+    },
+    onChangeRange() {
+      if (this.isPlaying) {
+        this.pause();
+        this.play();
+        console.log(`updating the speed`);
+      }
+    }
   }
 });
 </script>
