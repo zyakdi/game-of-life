@@ -12,7 +12,11 @@
       </tr>
     </table>
 
-    <ControlPanel />
+    <ControlPanel
+      :alive-cells="getAliveCells()"
+      :reset-function="resetBoard"
+      :play-function="computeBoard"
+    />
   </div>
 </template>
 
@@ -27,24 +31,69 @@ type Data = { columns: number; rows: number; board: CellType[][] };
 export default Vue.extend({
   name: "GameBoard",
   components: { Cell, ControlPanel },
-  data: (): Data => ({ columns: 10, rows: 10, board: [] }),
-  created: function() {
-    const board: CellType[][] = [];
-    for (let i = 0; i < this.rows; i++) {
-      const row: CellType[] = [];
-      for (let j = 0; j < this.columns; j++)
-        row.push({ isAlive: false, aliveNeighbors: 0 });
-      board.push(row);
-    }
-    this.board = board;
+  data(): Data {
+    return { columns: 10, rows: 10, board: [] };
+  },
+  created() {
+    this.resetBoard();
   },
   methods: {
-    changeCellState: function(position: Position) {
+    changeCellState(position: Position): void {
       this.board[position.row][position.column].isAlive = !this.board[
         position.row
       ][position.column].isAlive;
     },
-    computeBoard: function() {}
+    resetBoard(): void {
+      const board: CellType[][] = [];
+      for (let n = 0; n < this.rows; n++) {
+        const row: CellType[] = [];
+        for (let m = 0; m < this.columns; m++)
+          row.push({ isAlive: false, aliveNeighbors: 0 });
+        board.push(row);
+      }
+      this.board = board;
+    },
+    computeBoard(): void {
+      console.log("play");
+      console.table(this.board);
+      const directions: { x: number; y: number }[] = [
+        { x: -1, y: -1 },
+        { x: 0, y: -1 },
+        { x: 1, y: -1 },
+        { x: 1, y: 0 },
+        { x: 1, y: 1 },
+        { x: 0, y: 1 },
+        { x: -1, y: 1 },
+        { x: -1, y: 0 }
+      ];
+      for (let n = 0; n < this.rows; n++)
+        for (let m = 0; m < this.columns; m++) {
+          this.board[n][m].aliveNeighbors = 0;
+          for (const direction of directions)
+            if (
+              n + direction.y >= 0 &&
+              n + direction.y < this.rows &&
+              m + direction.x >= 0 &&
+              m + direction.x < this.columns &&
+              this.board[n + direction.y][m + direction.x].isAlive
+            ) {
+              this.board[n][m].aliveNeighbors++;
+            }
+        }
+      for (let n = 0; n < this.rows; n++)
+        for (let m = 0; m < this.columns; m++) {
+          if (
+            (this.board[n][m].isAlive &&
+              (this.board[n][m].aliveNeighbors < 2 ||
+                this.board[n][m].aliveNeighbors > 3)) ||
+            (!this.board[n][m].isAlive && this.board[n][m].aliveNeighbors === 3)
+          )
+            this.changeCellState({ row: n, column: m });
+        }
+    },
+    getAliveCells(): number {
+      return this.board.flat().filter((cell: CellType) => cell.isAlive).length;
+    }
   }
 });
 </script>
