@@ -10,7 +10,9 @@
       />
     </div>
     <div class="cells-counter">
+      <img src="../assets/leaf-icon.svg" alt="Leaf icon" />
       <p>{{ aliveCells }}</p>
+      <div />
     </div>
     <div class="controls">
       <button class="play-pause-btn" @click="onClickPlayPause">
@@ -130,6 +132,7 @@ export default Vue.extend({
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .speed-range {
@@ -137,10 +140,7 @@ export default Vue.extend({
   display: flex;
   flex-flow: row;
   align-items: center;
-}
-
-.speed-range > input {
-  width: 30%;
+  justify-content: center;
 }
 
 .speed-range > img {
@@ -150,14 +150,29 @@ export default Vue.extend({
 .cells-counter {
   width: 100px;
   height: 50px;
-  border: 1px solid black;
-  border-radius: 30px;
-  background-color: rgb(255, 255, 255);
-  width: 20%;
+  border: 1px solid rgba(146, 131, 131, 0.664);
+  border-radius: 20px;
+  background-color: rgb(248, 246, 239);
+  width: 15%;
+  padding: 0 3%;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .cells-counter > p {
   text-align: center;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.cells-counter > img {
+  width: 20px;
+}
+
+.cells-counter > div {
+  width: 20px;
 }
 
 .controls {
@@ -172,11 +187,9 @@ button {
   border: none;
   width: 50px;
   height: 50px;
-  border: 1px solid black;
+  border: 1px solid rgba(146, 131, 131, 0.664);
   margin: 0 5px;
-}
-
-.random-btn {
+  background-color: rgb(248, 246, 239);
 }
 
 .random-btn > img {
@@ -184,17 +197,105 @@ button {
 }
 
 .play-pause-btn > img {
-  width: 20px;
+  width: 15px;
 }
 
 .next-btn > img {
-  width: 20px;
+  width: 15px;
 }
 
 .reset-btn > img {
-  width: 20px;
+  width: 15px;
 }
 
-@media screen and (max-width: 860px) {
+input[type="range"] {
+  height: 27px;
+  -webkit-appearance: none;
+  width: 30%;
+  margin: 0 10px;
+  background-color: transparent;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 9px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 1px #000000;
+  background: #f5f7f7;
+  border-radius: 21px;
+  border: 0px solid #010101;
+}
+input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000031;
+  border: 1px solid rgba(146, 131, 131, 0.664);
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  background: #d4d2dd;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: #f5f7f7;
+}
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 9px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 1px #000000;
+  background: #f5f7f7;
+  border-radius: 21px;
+  border: 0px solid #010101;
+}
+input[type="range"]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000031;
+  border: 1px solid rgba(146, 131, 131, 0.664);
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  background: #9689d9;
+  cursor: pointer;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 9px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #f5f7f7;
+  border: 0px solid rgba(146, 131, 131, 0.664);
+  border-radius: 42px;
+  box-shadow: 0px 0px 1px #000000;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #f5f7f7;
+  border: 0px solid #010101;
+  border-radius: 42px;
+  box-shadow: 0px 0px 1px #000000;
+}
+input[type="range"]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px #000031;
+  border: 1px solid rgba(146, 131, 131, 0.664);
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  background: #9689d9;
+  cursor: pointer;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: #f5f7f7;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: #f5f7f7;
 }
 </style>

@@ -10,4 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body,
+html {
+  background-color: rgb(248, 246, 239);
+}
 </style>

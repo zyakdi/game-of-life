@@ -129,23 +129,23 @@ export default Vue.extend({
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  width: 80%;
+  width: 60%;
   margin: auto;
   background-color: rgb(225, 213, 238);
-  padding: 2% 5%;
+  padding: 2% 3%;
   border-radius: 10px;
 }
 
 table {
-  border: 1px solid black;
+  border: 1px solid rgba(146, 131, 131, 0.664);
   border-spacing: 0px;
   border-collapse: collapse;
 }
 
 td {
-  border: 1px solid black;
+  border: 1px solid rgba(146, 131, 131, 0.664);
   width: 30px;
-  background-color: white;
+  background-color: rgb(248, 246, 239);
   padding: 0;
 }
 

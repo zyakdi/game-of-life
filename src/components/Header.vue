@@ -8,7 +8,18 @@
 <style scoped>
 .header {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row;
   justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+img {
+  width: 8%;
+}
+
+h1 {
+  margin-left: 30px;
+  font-size: 3vw;
 }
 </style>
