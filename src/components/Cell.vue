@@ -1,5 +1,9 @@
 <template>
-  <div class="cell" :class="{ alive: isAlive }" @click="onClick" />
+  <div
+    class="cell"
+    :class="{ alive: isAlive, dead: !isAlive }"
+    @click="onClick"
+  />
 </template>
 
 <script lang="ts">
@@ -14,25 +18,29 @@ export default Vue.extend({
       type: Object as () => Position,
       required: true,
       validator: (position: Position) =>
-        position.row >= 0 && position.column >= 0
-    }
+        position.row >= 0 && position.column >= 0,
+    },
   },
   methods: {
     onClick: function() {
       console.log(`Click on (${this.position.row}, ${this.position.column})`);
       this.$emit("change-cell-state", this.position);
-    }
-  }
+    },
+  },
 });
 </script>
 
 <style scoped>
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.dead:hover {
+  background-color: rgb(183, 164, 189);
 }
 
 .alive {
-  background-color: #cff;
+  background-color: rgb(114, 60, 145);
 }
 </style>

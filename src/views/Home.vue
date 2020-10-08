@@ -14,7 +14,7 @@ export default Vue.extend({
   name: "Home",
   components: {
     GameBoard,
-    Header
-  }
+    Header,
+  },
 });
 </script>
