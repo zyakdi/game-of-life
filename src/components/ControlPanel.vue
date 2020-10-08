@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <p>There are {{ aliveCells }} alive cells</p>
-    <button @click="onClickPlay">{{ isPlaying ? "Pause" : "Play" }}</button>
-    <button @click="resetFunction">Reset</button>
-    <button @click="playFunction">Next</button>
+    <button @click="onClickPlayPause">
+      {{ isPlaying ? "Pause" : "Play" }}
+    </button>
+    <button @click="onClickReset">Reset</button>
+    <button @click="computeCells">Next</button>
     <input
       v-model.number="speedValue"
       type="range"
@@ -33,22 +35,22 @@ export default Vue.extend({
       default: 0,
       validator(value) {
         return value >= 0;
-      }
+      },
     },
-    resetFunction: {
+    resetGame: {
       type: Function,
       required: true,
       default: function() {
         return;
-      }
+      },
     },
-    playFunction: {
+    computeCells: {
       type: Function,
       required: true,
       default: function() {
         return;
-      }
-    }
+      },
+    },
   },
   data(): Data {
     return { speedValue: 500, intervalRef: undefined, isPlaying: false };
@@ -56,7 +58,7 @@ export default Vue.extend({
   watch: {
     speedValue: function() {
       this.onChangeRange();
-    }
+    },
   },
   created() {
     this.MIN_SPEED = 100;
@@ -67,25 +69,27 @@ export default Vue.extend({
     this.intervalRef = undefined;
   },
   methods: {
-    onClickPlay() {
-      if (this.isPlaying) {
-        this.pause();
-      } else {
-        this.play();
-      }
-      this.isPlaying = !this.isPlaying;
+    onClickPlayPause() {
+      if (this.isPlaying) this.pause();
+      else this.play();
+    },
+    onClickReset() {
+      this.pause();
+      this.resetGame();
     },
     play() {
       if (this.MIN_SPEED && this.MAX_SPEED) {
         this.intervalRef = setInterval(
-          this.playFunction,
+          this.computeCells,
           this.MAX_SPEED - this.speedValue + this.MIN_SPEED
         );
+        this.isPlaying = true;
       }
     },
     pause() {
       clearInterval(this.intervalRef);
       this.intervalRef = undefined;
+      this.isPlaying = false;
     },
     onChangeRange() {
       if (this.isPlaying) {
@@ -93,8 +97,8 @@ export default Vue.extend({
         this.play();
         console.log(`updating the speed`);
       }
-    }
-  }
+    },
+  },
 });
 </script>
 

@@ -14,8 +14,8 @@
 
     <ControlPanel
       :alive-cells="getAliveCells()"
-      :reset-function="resetBoard"
-      :play-function="computeBoard"
+      :reset-game="resetBoard"
+      :compute-cells="computeCells"
     />
   </div>
 </template>
@@ -53,7 +53,7 @@ export default Vue.extend({
       }
       this.board = board;
     },
-    computeBoard(): void {
+    computeCells(): void {
       const directions: { x: number; y: number }[] = [
         { x: -1, y: -1 },
         { x: 0, y: -1 },
@@ -62,7 +62,7 @@ export default Vue.extend({
         { x: 1, y: 1 },
         { x: 0, y: 1 },
         { x: -1, y: 1 },
-        { x: -1, y: 0 }
+        { x: -1, y: 0 },
       ];
       for (let n = 0; n < this.rows; n++)
         for (let m = 0; m < this.columns; m++) {
@@ -91,8 +91,8 @@ export default Vue.extend({
     },
     getAliveCells(): number {
       return this.board.flat().filter((cell: CellType) => cell.isAlive).length;
-    }
-  }
+    },
+  },
 });
 </script>
 
