@@ -1,4 +1,4 @@
-# game-of-life
+# Zedlife - A Conway's Game of Life
 
 ## Project setup
 ```
