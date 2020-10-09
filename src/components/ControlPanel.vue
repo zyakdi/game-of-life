@@ -5,8 +5,8 @@
       <input
         v-model.number="speedValue"
         type="range"
-        :min="MIN_SPEED"
-        max="1000"
+        :min="MIN_FREQUENCY_MS"
+        :max="MAX_FREQUENCY_MS"
       />
     </div>
     <div class="cells-counter">
@@ -15,7 +15,7 @@
       <div />
     </div>
     <div class="controls">
-      <button class="play-pause-btn" @click="onClickPlayPause">
+      <button class="play-pause-btn" :class="{red: isPlaying, green: !isPlaying}" @click="onClickPlayPause">
         <img v-if="isPlaying" src="../assets/pause-icon.svg" alt="Pause game" />
         <img v-else src="../assets/play-icon.svg" alt="Play game" />
       </button>
@@ -39,8 +39,8 @@ type Data = {
   speedValue: number;
   intervalRef: number | undefined;
   isPlaying: boolean;
-  MIN_SPEED?: number;
-  MAX_SPEED?: number;
+  MIN_FREQUENCY_MS?: number;
+  MAX_FREQUENCY_MS?: number;
 };
 
 export default Vue.extend({
@@ -76,7 +76,7 @@ export default Vue.extend({
     },
   },
   data(): Data {
-    return { speedValue: 500, intervalRef: undefined, isPlaying: false };
+    return { speedValue: 1000, intervalRef: undefined, isPlaying: false };
   },
   watch: {
     speedValue: function() {
@@ -84,8 +84,8 @@ export default Vue.extend({
     },
   },
   created() {
-    this.MIN_SPEED = 100;
-    this.MAX_SPEED = 1000;
+    this.MIN_FREQUENCY_MS = 50;
+    this.MAX_FREQUENCY_MS = 1500;
   },
   beforeDestroy() {
     clearInterval(this.intervalRef);
@@ -101,10 +101,10 @@ export default Vue.extend({
       this.resetGame();
     },
     play() {
-      if (this.MIN_SPEED && this.MAX_SPEED) {
+      if (this.MIN_FREQUENCY_MS && this.MAX_FREQUENCY_MS) {
         this.intervalRef = setInterval(
           this.computeCells,
-          this.MAX_SPEED - this.speedValue + this.MIN_SPEED
+          this.MAX_FREQUENCY_MS - this.speedValue + this.MIN_FREQUENCY_MS
         );
         this.isPlaying = true;
       }
@@ -129,7 +129,6 @@ export default Vue.extend({
 .container {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
   width: 100%;
   justify-content: space-between;
   margin-top: 20px;
@@ -148,12 +147,11 @@ export default Vue.extend({
 }
 
 .cells-counter {
-  width: 100px;
   height: 50px;
+  width: 15%;
   border: 1px solid rgba(146, 131, 131, 0.664);
   border-radius: 20px;
   background-color: rgb(248, 246, 239);
-  width: 15%;
   padding: 0 3%;
   display: flex;
   flex-flow: row;
@@ -177,7 +175,7 @@ export default Vue.extend({
 
 .controls {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: center;
   width: 40%;
 }
@@ -190,10 +188,24 @@ button {
   border: 1px solid rgba(146, 131, 131, 0.664);
   margin: 0 5px;
   background-color: rgb(248, 246, 239);
+  padding: 8px 5px 5px 5px;
+  outline: none;
+}
+
+button:active {
+  background-color: rgb(179, 179, 179);
 }
 
 .random-btn > img {
   width: 20px;
+}
+
+.green {
+  background-color: rgba(176, 243, 167, 0.849);
+}
+
+.red {
+  background-color: rgb(236, 149, 149);
 }
 
 .play-pause-btn > img {
@@ -297,5 +309,99 @@ input[type="range"]:focus::-ms-fill-lower {
 }
 input[type="range"]:focus::-ms-fill-upper {
   background: #f5f7f7;
+}
+
+@media screen and (max-width: 750px) {
+  .container {
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: safe;
+    margin-top: 10px;
+  }
+
+  .cells-counter {
+    order: 0;
+    height: 30px;
+    width: 30%;
+    border: 1px solid rgba(146, 131, 131, 0.664);
+    border-radius: 20px;
+    background-color: rgb(248, 246, 239);
+    padding: 0 3%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cells-counter > p {
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+
+  .cells-counter > img {
+    width: 15px;
+  }
+
+  .cells-counter > div {
+    width: 15px;
+  }
+
+  .controls {
+    order: 1;
+    width: 50%;
+  }
+
+  .speed-range {
+    order: 2;
+  }
+
+  .speed-range > img {
+    width: 20px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 60%;
+    margin: 0 8px;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 5px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000031;
+    border: 1px solid rgba(146, 131, 131, 0.664);
+    height: 15px;
+    width: 15px;
+    border-radius: 20px;
+    background: #d4d2dd;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+  }
+
+  button {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+  }
+
+  .random-btn > img {
+    width: 12px;
+  }
+
+  .play-pause-btn > img {
+    width: 10px;
+  }
+
+  .next-btn > img {
+    width: 10px;
+  }
+
+  .reset-btn > img {
+    width: 10px;
+  }
 }
 </style>

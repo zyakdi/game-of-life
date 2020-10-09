@@ -129,8 +129,9 @@ export default Vue.extend({
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  width: 60%;
+  width: 1000px;
   margin: auto;
+  margin-top: 20px;
   background-color: rgb(225, 213, 238);
   padding: 2% 3%;
   border-radius: 10px;
@@ -155,5 +156,12 @@ td.alive {
 
 td.dead:hover {
   background-color: rgb(183, 164, 189);
+}
+
+@media screen and (max-width: 1150px) {
+  .game-board {
+    width: 90%;
+    margin-top: 10px;
+  }
 }
 </style>
