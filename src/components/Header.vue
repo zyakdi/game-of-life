@@ -45,7 +45,7 @@
 }
 
 h1 {
-  margin-left: 30px;
+  margin-left: 3%;
   font-size: 3vw;
 }
 
