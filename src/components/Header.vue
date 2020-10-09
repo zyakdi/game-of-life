@@ -1,25 +1,57 @@
 <template>
   <div class="header">
-    <img alt="Molecule icon" src="../assets/molecule-icon.svg" />
-    <h1>Conway's Game of Life</h1>
+    <div class="github-mirror"></div>
+    <div class="title">
+      <img class="logo" alt="Molecule icon" src="../assets/molecule-icon.svg" />
+      <h1>Conway's Game of Life</h1>
+    </div>
+    <a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/Dheos-z/game-of-life">
+      <img src="../assets/github-icon.svg" alt="Github icon">
+    </a>
   </div>
 </template>
 
 <style scoped>
 .header {
   display: flex;
-  flex-flow: row;
-  justify-content: center;
-  align-items: center;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 1000px;
   margin: auto;
 }
 
-img {
-  width: 8%;
+.title {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 15%;
+}
+
+.github-mirror {
+  width: 5%;
+}
+
+.github {
+  align-self: flex-end;
+  width: 5%;
+}
+
+.github > img {
+  width: 100%;
 }
 
 h1 {
   margin-left: 30px;
   font-size: 3vw;
+}
+
+@media screen and (max-width: 1150px) {
+  .header {
+    width: 90%;
+  }
 }
 </style>
