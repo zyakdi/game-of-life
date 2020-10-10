@@ -2,7 +2,8 @@
   <div
     class="cell"
     :class="{ alive: isAlive, dead: !isAlive }"
-    @click="onClick"
+    @mouseenter="onMouseEnter"
+    @mousedown="onMouseDown"
   />
 </template>
 
@@ -21,9 +22,13 @@ export default Vue.extend({
       validator: (position: Position) =>
         position.row >= 0 && position.column >= 0,
     },
+    isMouseDown: { type: Boolean, required: true, default: false },
   },
   methods: {
-    onClick: function(): void {
+    onMouseEnter(): void {
+      if (this.isMouseDown) this.$emit("change-cell-state", this.position);
+    },
+    onMouseDown(): void {
       this.$emit("change-cell-state", this.position);
     },
   },

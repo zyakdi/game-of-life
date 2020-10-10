@@ -1,6 +1,10 @@
 <template>
   <div class="game-board">
-    <table>
+    <table
+      @mousedown="onMouseDown"
+      @mouseup="onMouseUp"
+      @mouseleave="onMouseLeave"
+    >
       <tr v-for="row in rows" :key="row">
         <td
           v-for="column in columns"
@@ -13,6 +17,7 @@
           <Cell
             :is-alive="board[row - 1][column - 1].isAlive"
             :position="{ row: row - 1, column: column - 1 }"
+            :is-mouse-down="isMouseDown"
             @change-cell-state="changeCellState"
           />
         </td>
@@ -34,13 +39,18 @@ import Cell, { Position } from "./Cell.vue";
 import ControlPanel from "./ControlPanel.vue";
 
 type CellType = { isAlive: boolean; aliveNeighbors: number };
-type Data = { columns: number; rows: number; board: CellType[][] };
+type Data = {
+  columns: number;
+  rows: number;
+  board: CellType[][];
+  isMouseDown: boolean;
+};
 
 export default Vue.extend({
   name: "GameBoard",
   components: { Cell, ControlPanel },
   data(): Data {
-    return { columns: 35, rows: 20, board: [] };
+    return { columns: 35, rows: 20, board: [], isMouseDown: false };
   },
   created() {
     this.resetBoard();
@@ -114,6 +124,15 @@ export default Vue.extend({
         board.push(row);
       }
       this.board = board;
+    },
+    onMouseDown(): void {
+      if (!this.isMouseDown) this.isMouseDown = true;
+    },
+    onMouseUp(): void {
+      if (this.isMouseDown) this.isMouseDown = false;
+    },
+    onMouseLeave(): void {
+      if (this.isMouseDown) this.isMouseDown = false;
     },
   },
 });
