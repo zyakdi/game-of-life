@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="control-panel">
     <div class="speed-range">
       <img src="../assets/speed-icon.svg" alt="Leaf icon" />
       <input
-        v-model.number="speedValue"
+        v-model.number="speedRange"
         type="range"
         :min="MIN_FREQUENCY_MS"
         :max="MAX_FREQUENCY_MS"
@@ -15,7 +15,11 @@
       <div />
     </div>
     <div class="controls">
-      <button class="play-pause-btn" :class="{red: isPlaying, green: !isPlaying}" @click="onClickPlayPause">
+      <button
+        class="play-pause-btn"
+        :class="{ red: isPlaying, green: !isPlaying }"
+        @click="onClickPlayPause"
+      >
         <img v-if="isPlaying" src="../assets/pause-icon.svg" alt="Pause game" />
         <img v-else src="../assets/play-icon.svg" alt="Play game" />
       </button>
@@ -36,7 +40,7 @@
 import Vue from "vue";
 
 type Data = {
-  speedValue: number;
+  speedRange: number;
   intervalRef: number | undefined;
   isPlaying: boolean;
   MIN_FREQUENCY_MS?: number;
@@ -44,6 +48,7 @@ type Data = {
 };
 
 export default Vue.extend({
+  name: "ControlPanel",
   props: {
     aliveCells: {
       type: Number,
@@ -76,16 +81,16 @@ export default Vue.extend({
     },
   },
   data(): Data {
-    return { speedValue: 1000, intervalRef: undefined, isPlaying: false };
+    return { speedRange: 1000, intervalRef: undefined, isPlaying: false };
   },
   watch: {
-    speedValue: function() {
-      this.onChangeRange();
+    speedRange: function() {
+      this.onChangeSpeedRange();
     },
   },
   created() {
     this.MIN_FREQUENCY_MS = 50;
-    this.MAX_FREQUENCY_MS = 1500;
+    this.MAX_FREQUENCY_MS = 1200;
   },
   beforeDestroy() {
     clearInterval(this.intervalRef);
@@ -104,7 +109,7 @@ export default Vue.extend({
       if (this.MIN_FREQUENCY_MS && this.MAX_FREQUENCY_MS) {
         this.intervalRef = setInterval(
           this.computeCells,
-          this.MAX_FREQUENCY_MS - this.speedValue + this.MIN_FREQUENCY_MS
+          this.MAX_FREQUENCY_MS - this.speedRange + this.MIN_FREQUENCY_MS
         );
         this.isPlaying = true;
       }
@@ -114,11 +119,10 @@ export default Vue.extend({
       this.intervalRef = undefined;
       this.isPlaying = false;
     },
-    onChangeRange() {
+    onChangeSpeedRange() {
       if (this.isPlaying) {
         this.pause();
         this.play();
-        console.log(`updating the speed`);
       }
     },
   },
@@ -126,7 +130,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.container {
+.control-panel {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
@@ -312,7 +316,7 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 
 @media screen and (max-width: 750px) {
-  .container {
+  .control-panel {
     flex-flow: row wrap;
     align-items: center;
     justify-content: safe;

@@ -50,11 +50,6 @@ export default Vue.extend({
       this.board[position.row][position.column].isAlive = !this.board[
         position.row
       ][position.column].isAlive;
-      console.log(
-        `Now (${position.row},${position.column}) is ${
-          this.board[position.row][position.column].isAlive ? "alive" : "dead"
-        }`
-      );
     },
     resetBoard(): void {
       const board: CellType[][] = [];

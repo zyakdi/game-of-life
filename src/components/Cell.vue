@@ -12,6 +12,7 @@ import Vue from "vue";
 export type Position = { row: number; column: number };
 
 export default Vue.extend({
+  name: "Cell",
   props: {
     isAlive: { type: Boolean, required: true, default: false },
     position: {
@@ -22,8 +23,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onClick: function() {
-      console.log(`Click on (${this.position.row}, ${this.position.column})`);
+    onClick: function(): void {
       this.$emit("change-cell-state", this.position);
     },
   },

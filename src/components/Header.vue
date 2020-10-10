@@ -5,8 +5,13 @@
       <img class="logo" alt="Molecule icon" src="../assets/molecule-icon.svg" />
       <h1>Conway's Game of Life</h1>
     </div>
-    <a target="_blank" rel="noopener noreferrer" class="github" href="https://github.com/Dheos-z/game-of-life">
-      <img src="../assets/github-icon.svg" alt="Github icon">
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      class="github"
+      href="https://github.com/Dheos-z/game-of-life"
+    >
+      <img src="../assets/github-icon.svg" alt="Github icon" />
     </a>
   </div>
 </template>
