@@ -3,10 +3,11 @@
     <div class="speed-range">
       <img src="../assets/speed-icon.svg" alt="Leaf icon" />
       <input
-        v-model.number="speedRange"
+        v-model.number="speedRangeValue"
         type="range"
-        :min="MIN_FREQUENCY_MS"
-        :max="MAX_FREQUENCY_MS"
+        :min="minFrequencyMs"
+        :max="maxFrequencyMs"
+        @change="onChangeSpeedRange"
       />
     </div>
     <div class="cells-counter">
@@ -26,10 +27,10 @@
       <button class="reset-btn" @click="onClickReset">
         <img src="../assets/reset-icon.svg" alt="Reset game" />
       </button>
-      <button class="next-btn" @click="computeCells">
+      <button class="next-btn" @click="onClickNext">
         <img src="../assets/next-icon.svg" alt="Next generation" />
       </button>
-      <button class="random-btn" @click="placeRandomCells">
+      <button class="random-btn" @click="onClickRandom">
         <img src="../assets/random-icon.svg" alt="Random cells" />
       </button>
     </div>
@@ -40,12 +41,17 @@
 import Vue from "vue";
 
 type Data = {
-  speedRange: number;
-  intervalRef: number | undefined;
-  isPlaying: boolean;
-  MIN_FREQUENCY_MS?: number;
-  MAX_FREQUENCY_MS?: number;
+  speedRangeValue: number;
 };
+
+enum Event {
+  PlayGame = "play-game",
+  PauseGame = "pause-game",
+  ResetGame = "reset-game",
+  ComputeCells = "compute-cells",
+  PlaceRandomCells = "place-random-cells",
+  UpdateSpeed = "update-speed",
+}
 
 export default Vue.extend({
   name: "ControlPanel",
@@ -58,72 +64,44 @@ export default Vue.extend({
         return value >= 0;
       },
     },
-    resetGame: {
-      type: Function,
+    isPlaying: { type: Boolean, required: true, default: false },
+    minFrequencyMs: {
+      type: Number,
       required: true,
-      default: function() {
-        return;
+      default: 50,
+      validator(value) {
+        return value >= 0;
       },
     },
-    computeCells: {
-      type: Function,
+    maxFrequencyMs: {
+      type: Number,
       required: true,
-      default: function() {
-        return;
-      },
-    },
-    placeRandomCells: {
-      type: Function,
-      required: true,
-      default: function() {
-        return;
+      default: 1200,
+      validator(value) {
+        return value >= 0;
       },
     },
   },
   data(): Data {
-    return { speedRange: 1000, intervalRef: undefined, isPlaying: false };
-  },
-  watch: {
-    speedRange: function() {
-      this.onChangeSpeedRange();
-    },
-  },
-  created() {
-    this.MIN_FREQUENCY_MS = 50;
-    this.MAX_FREQUENCY_MS = 1200;
-  },
-  beforeDestroy() {
-    clearInterval(this.intervalRef);
-    this.intervalRef = undefined;
+    return { speedRangeValue: 1000 };
   },
   methods: {
     onClickPlayPause() {
-      if (this.isPlaying) this.pause();
-      else this.play();
+      if (this.isPlaying) this.$emit(Event.PauseGame);
+      else this.$emit(Event.PlayGame);
     },
     onClickReset() {
-      this.pause();
-      this.resetGame();
+      this.$emit(Event.PauseGame);
+      this.$emit(Event.ResetGame);
     },
-    play() {
-      if (this.MIN_FREQUENCY_MS && this.MAX_FREQUENCY_MS) {
-        this.intervalRef = setInterval(
-          this.computeCells,
-          this.MAX_FREQUENCY_MS - this.speedRange + this.MIN_FREQUENCY_MS
-        );
-        this.isPlaying = true;
-      }
+    onClickNext() {
+      this.$emit(Event.ComputeCells);
     },
-    pause() {
-      clearInterval(this.intervalRef);
-      this.intervalRef = undefined;
-      this.isPlaying = false;
+    onClickRandom() {
+      this.$emit(Event.PlaceRandomCells);
     },
     onChangeSpeedRange() {
-      if (this.isPlaying) {
-        this.pause();
-        this.play();
-      }
+      this.$emit(Event.UpdateSpeed, this.speedRangeValue);
     },
   },
 });

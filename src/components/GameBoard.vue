@@ -26,9 +26,15 @@
 
     <ControlPanel
       :alive-cells="getAliveCells()"
-      :reset-game="resetBoard"
-      :compute-cells="computeCells"
-      :place-random-cells="placeRandomCells"
+      :is-playing="isPlaying"
+      :min-frequency-ms="MIN_FREQUENCY_MS"
+      :max-frequency-ms="MAX_FREQUENCY_MS"
+      @pause-game="pauseGame"
+      @play-game="playGame"
+      @reset-game="resetGame"
+      @compute-cells="computeCells"
+      @update-speed="updateSpeed"
+      @place-random-cells="placeRandomCells"
     />
   </div>
 </template>
@@ -44,16 +50,35 @@ type Data = {
   rows: number;
   board: CellType[][];
   isMouseDown: boolean;
+  MIN_FREQUENCY_MS?: number;
+  MAX_FREQUENCY_MS?: number;
+  speedRangeValue: number;
+  intervalRef: number | undefined;
+  isPlaying: boolean;
 };
 
 export default Vue.extend({
   name: "GameBoard",
   components: { Cell, ControlPanel },
   data(): Data {
-    return { columns: 35, rows: 20, board: [], isMouseDown: false };
+    return {
+      columns: 35,
+      rows: 20,
+      board: [],
+      isMouseDown: false,
+      speedRangeValue: 1000,
+      intervalRef: undefined,
+      isPlaying: false,
+    };
   },
   created() {
-    this.resetBoard();
+    this.resetGame();
+    this.MIN_FREQUENCY_MS = 50;
+    this.MAX_FREQUENCY_MS = 1200;
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalRef);
+    this.intervalRef = undefined;
   },
   methods: {
     changeCellState(position: Position): void {
@@ -61,7 +86,7 @@ export default Vue.extend({
         position.row
       ][position.column].isAlive;
     },
-    resetBoard(): void {
+    resetGame(): void {
       const board: CellType[][] = [];
       for (let n = 0; n < this.rows; n++) {
         const row: CellType[] = [];
@@ -133,6 +158,27 @@ export default Vue.extend({
     },
     onMouseLeave(): void {
       if (this.isMouseDown) this.isMouseDown = false;
+    },
+    playGame(): void {
+      if (this.MIN_FREQUENCY_MS && this.MAX_FREQUENCY_MS) {
+        this.intervalRef = setInterval(
+          this.computeCells,
+          this.MAX_FREQUENCY_MS - this.speedRangeValue + this.MIN_FREQUENCY_MS
+        );
+        this.isPlaying = true;
+      }
+    },
+    pauseGame(): void {
+      clearInterval(this.intervalRef);
+      this.intervalRef = undefined;
+      this.isPlaying = false;
+    },
+    updateSpeed(newSpeedValue: number): void {
+      this.speedRangeValue = newSpeedValue;
+      if (this.isPlaying) {
+        this.pauseGame();
+        this.playGame();
+      }
     },
   },
 });
