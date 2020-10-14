@@ -1,7 +1,7 @@
 <template>
   <div
     class="cell"
-    :class="{ alive: isAlive, dead: !isAlive }"
+    :class="isAlive ? 'alive' : 'dead'"
     @mouseenter="onMouseEnter"
     @mousedown="onMouseDown"
   />

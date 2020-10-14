@@ -5,18 +5,18 @@
       @mouseup="onMouseUp"
       @mouseleave="onMouseLeave"
     >
-      <tr v-for="row in rows" :key="row">
+      <tr v-for="(row, rowIndex) in board" :key="rowIndex">
         <td
-          v-for="column in columns"
-          :key="column"
+          v-for="(cell, columnIndex) in row"
+          :key="columnIndex"
           :class="{
-            alive: board[row - 1][column - 1].isAlive,
-            dead: !board[row - 1][column - 1].isAlive,
+            alive: cell.isAlive,
+            dead: !cell.isAlive,
           }"
         >
           <Cell
-            :is-alive="board[row - 1][column - 1].isAlive"
-            :position="{ row: row - 1, column: column - 1 }"
+            :is-alive="cell.isAlive"
+            :position="{ row: rowIndex, column: columnIndex }"
             :is-mouse-down="isMouseDown"
             @change-cell-state="changeCellState"
           />
