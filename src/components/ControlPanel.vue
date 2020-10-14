@@ -186,6 +186,12 @@ button:active {
   background-color: rgba(176, 243, 167, 0.849);
 }
 
+.green > img {
+  position: relative;
+  left: 2px;
+  bottom: 1px;
+}
+
 .red {
   background-color: rgb(236, 149, 149);
 }
@@ -376,6 +382,11 @@ input[type="range"]:focus::-ms-fill-upper {
 
   .play-pause-btn > img {
     width: 10px;
+  }
+
+  .green > img {
+    position: relative;
+    left: 1px;
   }
 
   .next-btn > img {
