@@ -42,10 +42,10 @@ export default Vue.extend({
 }
 
 .dead:hover {
-  background-color: rgb(183, 164, 189);
+  background-color: #91f8f8;
 }
 
 .alive {
-  background-color: rgb(114, 60, 145);
+  background-color: #84d4da;
 }
 </style>

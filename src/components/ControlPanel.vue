@@ -131,7 +131,7 @@ export default Vue.extend({
 .cells-counter {
   height: 50px;
   width: 200px;
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   border-radius: 20px;
   background-color: rgb(248, 246, 239);
   padding: 0 3%;
@@ -167,7 +167,7 @@ button {
   border: none;
   width: 50px;
   height: 50px;
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   margin: 0 5px;
   background-color: rgb(248, 246, 239);
   padding: 8px 5px 5px 5px;
@@ -230,7 +230,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0px 0px 0px #000031;
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   height: 20px;
   width: 20px;
   border-radius: 20px;
@@ -254,7 +254,7 @@ input[type="range"]::-moz-range-track {
 }
 input[type="range"]::-moz-range-thumb {
   box-shadow: 0px 0px 0px #000031;
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   height: 20px;
   width: 20px;
   border-radius: 20px;
@@ -272,7 +272,7 @@ input[type="range"]::-ms-track {
 }
 input[type="range"]::-ms-fill-lower {
   background: #f5f7f7;
-  border: 0px solid rgba(146, 131, 131, 0.664);
+  border: 0px solid rgba(83, 63, 63, 0.664);
   border-radius: 42px;
   box-shadow: 0px 0px 1px #000000;
 }
@@ -285,7 +285,7 @@ input[type="range"]::-ms-fill-upper {
 input[type="range"]::-ms-thumb {
   margin-top: 1px;
   box-shadow: 0px 0px 0px #000031;
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   height: 20px;
   width: 20px;
   border-radius: 20px;

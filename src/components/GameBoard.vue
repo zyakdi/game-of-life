@@ -192,30 +192,30 @@ export default Vue.extend({
   width: 1000px;
   margin: auto;
   margin-top: 20px;
-  background-color: rgb(225, 213, 238);
+  background-color: #206f9c;
   padding: 2% 3%;
   border-radius: 10px;
 }
 
 table {
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   border-spacing: 0px;
   border-collapse: collapse;
 }
 
 td {
-  border: 1px solid rgba(146, 131, 131, 0.664);
+  border: 1px solid rgba(83, 63, 63, 0.664);
   width: 30px;
   background-color: rgb(248, 246, 239);
   padding: 0;
 }
 
 td.alive {
-  background-color: rgb(114, 60, 145);
+  background-color: #84d4da;
 }
 
 td.dead:hover {
-  background-color: rgb(183, 164, 189);
+  background-color: #91f8f8;
 }
 
 @media screen and (max-width: 1150px) {
