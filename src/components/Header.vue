@@ -21,7 +21,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 70%;
+  width: 1000px;
   margin: auto;
 }
 
