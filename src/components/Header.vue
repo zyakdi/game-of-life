@@ -21,28 +21,28 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 1000px;
+  width: 70%;
   margin: auto;
 }
 
 .title {
   display: flex;
-  flex-flow: row;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
 }
 
 .logo {
-  width: 15%;
+  width: 100px;
 }
 
 .github-mirror {
-  width: 5%;
+  width: 50px;
 }
 
 .github {
   align-self: flex-end;
-  width: 5%;
+  width: 50px;
 }
 
 .github > img {
@@ -50,13 +50,22 @@
 }
 
 h1 {
-  margin-left: 3%;
-  font-size: 3vw;
+  margin-left: 20px;
+  font-size: 30px;
 }
 
 @media screen and (max-width: 1150px) {
   .header {
+    flex-flow: column nowrap;
     width: 90%;
+  }
+
+  .title {
+    flex-flow: column nowrap;
+  }
+
+  .github {
+    order: -1;
   }
 }
 </style>

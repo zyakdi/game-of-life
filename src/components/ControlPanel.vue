@@ -117,7 +117,7 @@ export default Vue.extend({
 }
 
 .speed-range {
-  width: 40%;
+  width: 300px;
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -130,7 +130,7 @@ export default Vue.extend({
 
 .cells-counter {
   height: 50px;
-  width: 15%;
+  width: 200px;
   border: 1px solid rgba(146, 131, 131, 0.664);
   border-radius: 20px;
   background-color: rgb(248, 246, 239);
@@ -159,7 +159,7 @@ export default Vue.extend({
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  width: 40%;
+  width: 300px;
 }
 
 button {
@@ -299,9 +299,9 @@ input[type="range"]:focus::-ms-fill-upper {
   background: #f5f7f7;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 800px) {
   .control-panel {
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: safe;
     margin-top: 10px;
@@ -309,92 +309,26 @@ input[type="range"]:focus::-ms-fill-upper {
 
   .cells-counter {
     order: 0;
-    height: 30px;
-    width: 30%;
-    border: 1px solid rgba(146, 131, 131, 0.664);
-    border-radius: 20px;
-    background-color: rgb(248, 246, 239);
-    padding: 0 3%;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .cells-counter > p {
-    text-align: center;
-    font-size: 0.8em;
-    font-weight: 400;
-  }
-
-  .cells-counter > img {
-    width: 15px;
-  }
-
-  .cells-counter > div {
-    width: 15px;
+    width: 90%;
+    margin: 10px 0;
   }
 
   .controls {
     order: 1;
-    width: 50%;
+    width: 90%;
+    margin: 10px 0;
   }
 
   .speed-range {
     order: 2;
-  }
-
-  .speed-range > img {
-    width: 20px;
+    width: 90%;
+    justify-content: space-between;
+    margin: 10px 0;
   }
 
   input[type="range"] {
-    -webkit-appearance: none;
-    width: 60%;
-    margin: 0 8px;
-  }
-
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 5px;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    box-shadow: 0px 0px 0px #000031;
-    border: 1px solid rgba(146, 131, 131, 0.664);
-    height: 15px;
-    width: 15px;
-    border-radius: 20px;
-    background: #d4d2dd;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -5px;
-  }
-
-  button {
-    width: 30px;
-    height: 30px;
-    padding: 5px;
-  }
-
-  .random-btn > img {
-    width: 12px;
-  }
-
-  .play-pause-btn > img {
-    width: 10px;
-  }
-
-  .green > img {
-    position: relative;
-    left: 1px;
-  }
-
-  .next-btn > img {
-    width: 10px;
-  }
-
-  .reset-btn > img {
-    width: 10px;
+    width: 100%;
+    margin: 0 10px;
   }
 }
 </style>
