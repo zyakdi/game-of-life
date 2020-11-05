@@ -42,7 +42,8 @@ export default Vue.extend({
 }
 
 .dead:hover {
-  background-color: #91f8f8;
+  background-color: #84d4da;
+  opacity: 0.8;
 }
 
 .alive {

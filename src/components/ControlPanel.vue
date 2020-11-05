@@ -174,6 +174,19 @@ button {
   outline: none;
 }
 
+button:hover {
+  animation: zoom 0s linear forwards;
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
 button:active {
   background-color: rgb(179, 179, 179);
 }
